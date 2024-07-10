@@ -45,6 +45,7 @@ class Opciones_Usuarios(models.Model):
         return f'{self.id_opcion_usuario}{self.usuario_modificacion}{self.fecha_modificacion}'
     class Meta:
          db_table ="Opciones_Usuarios"
+         
             
     
     
