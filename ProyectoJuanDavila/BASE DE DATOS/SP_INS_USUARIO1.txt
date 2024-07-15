@@ -1,0 +1,32 @@
+-- FUNCTION: public.SP_INS_USUARIO(character varying, character varying, character varying, character varying, date, character varying, integer)
+
+-- DROP FUNCTION IF EXISTS public."SP_INS_USUARIO"(character varying, character varying, character varying, character varying, date, character varying, integer);
+
+CREATE OR REPLACE FUNCTION public."SP_INS_USUARIO"(
+	codigo character varying,
+	nombres character varying,
+	apellidos character varying,
+	mail character varying,
+	fecha_nacimiento date,
+	contrasena character varying,
+	usuario_creacion integer)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+DECLARE
+    contador_id integer;
+BEGIN
+    
+    SELECT COALESCE(MAX(id_usuario), 0) + 1 INTO contador_id 
+    FROM "USUARIOS";
+    
+    
+    INSERT INTO "USUARIOS"(id_usuario, codigo, nombres, apellidos, mail, fecha_nacimiento, contrasena, estado, usuario_creacion, fecha_creacion)
+    VALUES(contador_id, codigo, nombres, apellidos, mail, fecha_nacimiento, contrasena, 'A', usuario_creacion, NOW());
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_INS_USUARIO"(character varying, character varying, character varying, character varying, date, character varying, integer)
+    OWNER TO postgres;

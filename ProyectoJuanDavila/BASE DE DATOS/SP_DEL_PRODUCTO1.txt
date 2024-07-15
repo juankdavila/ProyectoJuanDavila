@@ -1,0 +1,20 @@
+-- FUNCTION: public.SP_DEL_PRODUCTOS(character varying)
+
+-- DROP FUNCTION IF EXISTS public."SP_DEL_PRODUCTOS"(character varying);
+
+CREATE OR REPLACE FUNCTION public."SP_DEL_PRODUCTOS"(
+	pv_codigo character varying)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+BEGIN
+    UPDATE "productos"
+    SET estado = 'I'
+    WHERE codigo = pv_codigo;
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_DEL_PRODUCTOS"(character varying)
+    OWNER TO postgres;

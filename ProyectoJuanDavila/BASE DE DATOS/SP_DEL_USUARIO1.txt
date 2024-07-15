@@ -1,0 +1,25 @@
+-- FUNCTION: public.SP_DEL_USUARIO(integer, integer)
+
+-- DROP FUNCTION IF EXISTS public."SP_DEL_USUARIO"(integer, integer);
+
+CREATE OR REPLACE FUNCTION public."SP_DEL_USUARIO"(
+	pi_id_usuario integer,
+	pi_usuario_modificacion integer)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+BEGIN
+    UPDATE "USUARIOS"
+    SET 
+        estado = 'I',
+        usuario_modificacion = pi_usuario_modificacion,
+        fecha_modificacion = NOW()
+    WHERE
+        id_usuario = pi_id_usuario;
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_DEL_USUARIO"(integer, integer)
+    OWNER TO postgres;

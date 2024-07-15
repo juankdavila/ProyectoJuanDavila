@@ -1,0 +1,22 @@
+-- FUNCTION: public.SP_DEL_TIENDAS(integer)
+
+-- DROP FUNCTION IF EXISTS public."SP_DEL_TIENDAS"(integer);
+
+CREATE OR REPLACE FUNCTION public."SP_DEL_TIENDAS"(
+	pv_id_tienda integer)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+BEGIN
+	
+	UPDATE "TIENDAS"
+	SET ESTADO='I'
+	WHERE ID_TIENDA=PV_ID_TIENDA;
+
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_DEL_TIENDAS"(integer)
+    OWNER TO postgres;

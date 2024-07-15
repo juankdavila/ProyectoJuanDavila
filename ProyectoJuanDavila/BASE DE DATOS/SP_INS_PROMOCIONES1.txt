@@ -1,0 +1,26 @@
+-- FUNCTION: public.SP_INS_PROMOCIONES(character varying, timestamp without time zone, timestamp without time zone)
+
+-- DROP FUNCTION IF EXISTS public."SP_INS_PROMOCIONES"(character varying, timestamp without time zone, timestamp without time zone);
+
+CREATE OR REPLACE FUNCTION public."SP_INS_PROMOCIONES"(
+	pv_descripcion character varying,
+	pf_fecha_inicio timestamp without time zone,
+	pf_fecha_fin timestamp without time zone)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+	DECLARE CONTADOR_ID INTEGER;
+BEGIN
+	SELECT CONTADOR_ID=ISNULL(MAX(ID_PROMOCION),0)+1
+	FROM "PROMOCIONES";
+
+	INSERT INTO "PROMOCIONES"(ID_PROMOCION,DESCRIPCION,FECHA_INICIO,FECHA_FIN,ESTADO)
+	VALUES(CONTADOR_ID,PV_DESCRIPCION,PF_FECHA_INICIO,PF_FECHA_FIN,'A');
+
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_INS_PROMOCIONES"(character varying, timestamp without time zone, timestamp without time zone)
+    OWNER TO postgres;

@@ -1,0 +1,22 @@
+-- FUNCTION: public.SP_INS_TIENDAS(integer, character varying)
+
+-- DROP FUNCTION IF EXISTS public."SP_INS_TIENDAS"(integer, character varying);
+
+CREATE OR REPLACE FUNCTION public."SP_INS_TIENDAS"(
+	pv_id_tienda integer,
+	pv_descripcion character varying)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+BEGIN
+	
+	INSERT INTO TIENDAS(ID_TIENDA,DESCRIPCION,ESTADO)
+	VALUES(PV_ID_TIENDA,PV_DESCRIPCION,'A');
+
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_INS_TIENDAS"(integer, character varying)
+    OWNER TO postgres;

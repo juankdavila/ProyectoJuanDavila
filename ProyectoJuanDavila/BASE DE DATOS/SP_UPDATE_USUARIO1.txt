@@ -1,0 +1,36 @@
+-- FUNCTION: public.SP_UPDATE_USUARIO(integer, character varying, character varying, character varying, character varying, date, character varying, integer)
+
+-- DROP FUNCTION IF EXISTS public."SP_UPDATE_USUARIO"(integer, character varying, character varying, character varying, character varying, date, character varying, integer);
+
+CREATE OR REPLACE FUNCTION public."SP_UPDATE_USUARIO"(
+	p_id_usuario integer,
+	p_codigo character varying,
+	p_nombres character varying,
+	p_apellidos character varying,
+	p_mail character varying,
+	p_fecha_nacimiento date,
+	p_contrasena character varying,
+	p_usuario_modificacion integer)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+BEGIN
+    UPDATE "USUARIOS" u
+    SET 
+        codigo = p_codigo,
+        nombres = p_nombres,
+        apellidos = p_apellidos,
+        mail = p_mail,
+        fecha_nacimiento = p_fecha_nacimiento,
+        contrasena = p_contrasena,
+        usuario_modificacion = p_usuario_modificacion,
+        fecha_modificacion = NOW()
+    WHERE
+        u.id_usuario = p_id_usuario;
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_UPDATE_USUARIO"(integer, character varying, character varying, character varying, character varying, date, character varying, integer)
+    OWNER TO postgres;

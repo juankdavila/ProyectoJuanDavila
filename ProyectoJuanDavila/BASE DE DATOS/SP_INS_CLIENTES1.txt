@@ -1,0 +1,22 @@
+-- FUNCTION: public.SP_INS_CLIENTES(character varying, character varying)
+
+-- DROP FUNCTION IF EXISTS public."SP_INS_CLIENTES"(character varying, character varying);
+
+CREATE OR REPLACE FUNCTION public."SP_INS_CLIENTES"(
+	pv_cedula character varying,
+	pv_nombres character varying)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+BEGIN
+	
+	INSERT INTO "CLIENTES"(CEDULA,NOMBRE,ESTADO)
+	VALUES(PV_CEDULA,PV_NOMBRES,'A');
+
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_INS_CLIENTES"(character varying, character varying)
+    OWNER TO postgres;

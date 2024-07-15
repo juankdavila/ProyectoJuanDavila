@@ -1,0 +1,25 @@
+-- FUNCTION: public.SP_UPD_PROMOCIONES(integer, character varying, timestamp without time zone, timestamp without time zone)
+
+-- DROP FUNCTION IF EXISTS public."SP_UPD_PROMOCIONES"(integer, character varying, timestamp without time zone, timestamp without time zone);
+
+CREATE OR REPLACE FUNCTION public."SP_UPD_PROMOCIONES"(
+	pi_id_promocion integer,
+	pv_descripcion character varying,
+	pf_fecha_inicio timestamp without time zone,
+	pf_fecha_fin timestamp without time zone)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+BEGIN
+	UPDATE "PROMOCIONES"
+	SET DESCRIPCION=PV_DESCRIPCION,
+	FECHA_INICIO=PF_FECHA_INICIO,
+	FECHA_FIN=PF_FECHA_FIN
+	WHERE ID_PROMOCION=PI_ID_PROMOCION;
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_UPD_PROMOCIONES"(integer, character varying, timestamp without time zone, timestamp without time zone)
+    OWNER TO postgres;

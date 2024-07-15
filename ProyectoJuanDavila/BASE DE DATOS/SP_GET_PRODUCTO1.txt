@@ -1,0 +1,21 @@
+-- FUNCTION: public.SP_GET_PRODUCTO(character varying)
+
+-- DROP FUNCTION IF EXISTS public."SP_GET_PRODUCTO"(character varying);
+
+CREATE OR REPLACE FUNCTION public."SP_GET_PRODUCTO"(
+	pv_codigo character varying)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+BEGIN
+	
+	SELECT * FROM "PRODUCTOS"
+	WHERE CODIGO=PV_CODIGO;
+
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_GET_PRODUCTO"(character varying)
+    OWNER TO postgres;

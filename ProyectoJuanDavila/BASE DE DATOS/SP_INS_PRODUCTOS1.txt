@@ -1,0 +1,26 @@
+-- FUNCTION: public.SP_INS_PRODUCTOS(character varying, character varying, numeric)
+
+-- DROP FUNCTION IF EXISTS public."SP_INS_PRODUCTOS"(character varying, character varying, numeric);
+
+CREATE OR REPLACE FUNCTION public."SP_INS_PRODUCTOS"(
+	pv_codigo character varying,
+	pv_descripcion character varying,
+	pf_precio numeric)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+	DECLARE CONTADOR_ID INTEGER;
+BEGIN
+	SELECT CONTADOR_ID=ISNULL(MAX(ID_PRODUCTO),0)+1
+	FROM "PRODUCTOS";
+
+	INSERT INTO "PRODUCTOS"(ID_PRODUCTO,CODIGO,DESCRIPCION,PRECIO,ESTADO)
+	VALUES(CONTADOR_ID,PV_CODIGO,PV_DESCRIPCION,PF_PRECIO,'A');
+
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_INS_PRODUCTOS"(character varying, character varying, numeric)
+    OWNER TO postgres;

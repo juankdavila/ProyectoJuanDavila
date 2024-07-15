@@ -1,0 +1,26 @@
+-- FUNCTION: public.SP_UPD_PRODUCTOS(character varying, character varying, numeric)
+
+-- DROP FUNCTION IF EXISTS public."SP_UPD_PRODUCTOS"(character varying, character varying, numeric);
+
+CREATE OR REPLACE FUNCTION public."SP_UPD_PRODUCTOS"(
+	pv_codigo character varying,
+	pv_descripcion character varying,
+	pf_precio numeric)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+	
+BEGIN
+	UPDATE "PRODUCTOS"
+	SET DESCRIPCION=PV_DESCRIPCION,
+		PRECIO=PF_PRECIO
+	WHERE
+		CODIGO=PV_CODIGO;
+
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_UPD_PRODUCTOS"(character varying, character varying, numeric)
+    OWNER TO postgres;

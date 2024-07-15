@@ -1,0 +1,21 @@
+-- FUNCTION: public.SP_GET_TIENDA(integer)
+
+-- DROP FUNCTION IF EXISTS public."SP_GET_TIENDA"(integer);
+
+CREATE OR REPLACE FUNCTION public."SP_GET_TIENDA"(
+	pv_id_tienda integer)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $BODY$
+BEGIN
+	
+	SELECT * FROM "TIENDAS"
+	WHERE ID_TIENDA=@PV_ID_TIENDA;
+
+END;
+$BODY$;
+
+ALTER FUNCTION public."SP_GET_TIENDA"(integer)
+    OWNER TO postgres;
