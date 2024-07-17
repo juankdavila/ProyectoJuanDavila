@@ -1,23 +1,24 @@
 from django.urls import path,include
-from rest_framework import routers
-from .views import UsuariosViewSet, ClientesViewSet, ProductosViewSet,PromocionesViewSet, PromocionesClienteViewSet, PromocionesProductoViewSet,TiendasViewSet,VisitaTiendaClientesViewSet,get_visitas
+from rest_framework.routers import DefaultRouter
+from .views import UsuariosViewSet, ClientesViewSet, ProductosViewSet,PromocionesViewSet, PromocionesClienteViewSet, PromocionesProductoViewSet,TiendasViewSet,VisitaTiendaClientesViewSet,HistorialVisitaViewSet
 
 
-router=routers.DefaultRouter()
-router.register(r'Usuarios',UsuariosViewSet)
+router = DefaultRouter()
+router.register(r'usuarios', UsuariosViewSet)
 router.register(r'clientes', ClientesViewSet)
-router.register(r'productos', ProductosViewSet)
 router.register(r'promociones', PromocionesViewSet)
-router.register(r'promociones_clientes', PromocionesClienteViewSet)
-router.register(r'promociones_productos', PromocionesProductoViewSet)
-router.register(r'Tiendas', TiendasViewSet)
+router.register(r'promociones_cliente', PromocionesClienteViewSet)
+router.register(r'productos', ProductosViewSet)
+router.register(r'promociones_producto', PromocionesProductoViewSet)
+router.register(r'tiendas', TiendasViewSet)
 router.register(r'visita_tienda_clientes', VisitaTiendaClientesViewSet)
+router.register(r'historial_visita', HistorialVisitaViewSet, basename='historial-visita')
 
 
 
 urlpatterns = [
-path('',include(router.urls)),
-path('visitas/<str:cedula>/', get_visitas, name='get_visitas'),
+     path('',include(router.urls)),
+
 
 
 ]

@@ -132,6 +132,18 @@ class Visita_Tienda_Clientes(models.Model):
     class Meta:
         db_table = 'Visita_Tienda_Clientes' 
         
+class HistorialVisita(models.Model):
+    descripcion = models.CharField(max_length=255)
+    nombre = models.CharField(max_length=100)
+    fecha_visita = models.DateTimeField()
+    cliente = models.ForeignKey(Clientes, on_delete=models.CASCADE)    
+    
+    def __str__(self):
+        return f'{self.descripcion} {self.nombre} {self.fecha_visita}'
+
+    class Meta:
+        db_table = 'HistorialVisita' 
+        
         
   
         

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Usuarios,Clientes, Promociones, Promociones_Clientes, Productos, Promociones_Productos,Tiendas,Visita_Tienda_Clientes
+from .models import Usuarios,Clientes, Promociones, Promociones_Clientes, Productos, Promociones_Productos,Tiendas,Visita_Tienda_Clientes,HistorialVisita
 
 
 class UsuariosSerializer(serializers.ModelSerializer):
@@ -11,7 +11,7 @@ class UsuariosSerializer(serializers.ModelSerializer):
 class ClientesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Clientes
-        fields = ['cedula', 'nombre', 'estado']
+        fields = '__all__'
 
 class PromocionesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,3 +45,7 @@ class VisitaTiendaClientesSerializer(serializers.ModelSerializer):
         fields = '__all__'   
         
 
+class HistorialVisitaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistorialVisita
+        fields = '__all__'
